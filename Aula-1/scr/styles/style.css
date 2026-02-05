@@ -11,3 +11,10 @@ text-decoration: none;
 margin: 0 15px;
 font-weight: bold;
 }
+
+.preco-destaque {
+font-size: 26px;
+color: #27ae60;
+font-weight: bold;
+margin: 20px 0;
+}
