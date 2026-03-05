@@ -1,42 +1,45 @@
-// 1. ORIENTAÇÃO A OBJETOS (Slide 15)
-// Criando o "molde" para os pratos do TechFood
-class Prato {
-    constructor(nome, preco) {
-        this.nome = nome;
-        this.preco = preco;
-    }
-    // (Slide 16)
-     exibirComMoeda() {
-        return "R$ " + this.preco.toFixed(2);
-    }
-}
+/* GABARITO 1 */
+let n = prompt("Nome:").trim();
+let s = prompt("Sobrenome:").trim();
+let completo = n + " " + s;
+alert(completo.toLowerCase());
+alert("Seu nome tem " + completo.length + " caracteres.");
 
-// 2. INTERAÇÃO INICIAL (Slide 17)
-// O prompt captura o dado do usuário como String
-alert("Seja bem-vindo ao TechFood! Aproveite nossos cupons de hoje.");
+// /* GABARITO 2 */
+let total = prompt("Valor da conta:");
+let pessoas = prompt("Qtd pessoas:");
+let divisao = total / pessoas;
+alert("Cada amigo deve pagar R$ " + divisao.toFixed(2));
 
-// (Slide 18)
-const cliente = prompt("Para um atendimento personalizado, digite seu nome:");
-
-// (Slide 19)
-let nomeFormatado = cliente.trim().toUpperCase();
-
-// 3. FUNÇÕES DE DATA E HORA (Slide 20)
-// Captura a hora do sistema do usuário para saudação
-const agora = new Date();
-const hora = agora.getHours();
-
-if (hora < 12) {
-    alert("Bom dia, " + nomeFormatado + "! O café da manhã já saiu.");
+// /* GABARITO 3 */
+let valor = prompt("Valor da compra:");
+let cupom = prompt("Tem cupom? (sim/nao)");
+if (valor > 150 || cupom == "sim") {
+    console.log("Frete Grátis Liberado");
 } else {
-    alert("Olá, " + nomeFormatado + "! Que tal conferir nossas massas para o jantar?");
+    console.log("Frete Pago");
 }
 
-// 4. INSTANCIANDO OBJETOS E LOGICA ARITMÉTICA (Slide 21)
-const lasanha = new Prato("Lasanha Bolonhesa", 45.00);
+/* GABARITO 4 */
+let userNum = prompt("Escolha de 1 a 10:");
+let sortudo = Math.floor(Math.random() * 10) + 1;
+if (userNum == sortudo) {
+    alert("Parabéns, você ganhou um brinde!");
+} else {
+    alert("Que pena, o número sorteado foi " + sortudo);
+}
 
-let qtd = prompt("Simulação: Quantas unidades de " + lasanha.nome + " você deseja?");
-let total = lasanha.preco * qtd;
-
-// Exibindo o cálculo final
-alert("Resumo da Simulação:\nPrato: " + lasanha.nome + "\nTotal: " + lasanha.exibirComMoeda());
+/* GABARITO 5 */
+class Veiculo {
+    constructor(mo, ma, an) {
+        this.modelo = mo;
+        this.marca = ma;
+        this.ano = an;
+    }
+    idadeVeiculo(anoAtual) {
+        return anoAtual - this.ano;
+    }
+}
+const meuCarro = new Veiculo("Corolla", "Toyota", 2020);
+let anoHj = prompt("Em que ano estamos?");
+alert("O " + meuCarro.modelo + " tem " + meuCarro.idadeVeiculo(anoHj) + " anos.");
