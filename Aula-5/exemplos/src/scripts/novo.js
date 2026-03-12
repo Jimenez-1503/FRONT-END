@@ -46,6 +46,8 @@
 const tituloNhoque = document.querySelector('#sessao_massas .card:nth-child(2) h3')
 const botoesCompra = document.querySelectorAll('.btn-pedido')
 const terceiroCard = document.querySelector('.card:nth-child(3)')
+const imgLasanha = document.querySelector('#foto-destaque')
+const card_lasanha = document.querySelector('#card-lasanha')
 
 const data = new Date()
 const hora = data.getHours()
@@ -62,3 +64,7 @@ saudacao.textContent = hora < 18
 : "Bem-vindo e Boa noite!"
 
 seuNome.innerHTML = "Meu <strong>nome</strong> é <em>Pedro</em>"
+
+// imgLasanha.src = "./src/images/nhoque.png"
+
+// tituloNhoque.style.color = "blue"
