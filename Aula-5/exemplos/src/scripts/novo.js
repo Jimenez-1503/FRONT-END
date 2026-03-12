@@ -68,3 +68,5 @@ seuNome.innerHTML = "Meu <strong>nome</strong> é <em>Pedro</em>"
 // imgLasanha.src = "./src/images/nhoque.png"
 
 // tituloNhoque.style.color = "blue"
+
+card_lasanha.classList.add('em-promocao')

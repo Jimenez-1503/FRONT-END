@@ -1,0 +1,57 @@
+Eventos DOM
+
+Um evento é uma ação ou ocorrência que acontece no navegador e que o JavaScript pode
+detectar.
+
+No JavaScript, o elemento HTML é o local, o evento é a ação do usuário e a função é o que o site faz
+em resposta.
+
+Onde usar: Em qualquer lugar que exija resposta do usuário: cliques, digitação, envio de
+formulários ou carregamento da página.
+
+Ações ocorrem pelo usuário
+
+O Ouvinte de Eventos
+(addEventListener):
+
+É o método profissional de "vigiar" um elemento. Ele separa o comportamento do HTML.
+O addEventListener permite adicionar vários "vigias" ao mesmo elemento sem conflitos.
+
+Eventos de Mouse:
+
+click: Clique simples com o botão esquerdo.
+2. dblclick: Clique duplo.
+3. mouseover: Quando o mouse "entra" na área do elemento (hover).
+4. mouseout: Quando o mouse "sai" da área do elemento.
+5. mousedown / mouseup: Botão pressionado / solto.
+
+Eventos de Teclado:
+
+1. keydown: Tecla foi pressionada.
+2. keyup: Tecla foi solta (O mais usado para capturar o texto final).
+3. keypress: Tecla está sendo mantida pressionada.
+
+Eventos de Formulário (Inputs):
+
+1. input: Dispara a cada letra que muda no campo (perfeito para buscas).
+2. change: Dispara quando o valor muda e o usuário clica fora do campo.
+3. submit: Dispara quando o formulário é enviado (botão "Enviar").
+4. focus / blur: Quando o campo ganha foco / perde foco.
+
+Eventos de Janela (window):
+
+Eventos que não pertencem a uma tag específica, mas a toda a janela do navegador.
+
+1. load: Dispara quando o site inteiro (HTML, Imagens, Scripts) terminou de carregar.
+2. scroll: Dispara quando o usuário rola a página.
+3. resize: Dispara quando o usuário muda o tamanho da janela.
+
+Resumo
+
+Eventos: São interações entre usuário e navegador.
+addEventListener: O método padrão para gerenciar essas interações.
+Mouse: click, mouseover, mouseout.
+Teclado: keyup (ideal para leitura de campos).
+Formulário: input (tempo real), change (após sair), submit (envio).
+Objeto event: Contém os detalhes técnicos do que aconteceu.
+

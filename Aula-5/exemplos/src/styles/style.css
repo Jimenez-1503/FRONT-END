@@ -161,6 +161,7 @@
 
 /* IMPRESSÃO */
 
+
 @media print{
 
   #menu,
@@ -176,7 +177,7 @@
 
 .em-promocao{
   border:3px solid #f1c40f !important;
-  background-color:#fcf3cf;
+  background-color:#ffffff;
   transform:scale(1.05);
-  box-shadow:0px 10px 20px rgba(0,0,0,0.1);
+  box-shadow: 10px 10px 20px rgba(0,0,0,0.1);
 }
