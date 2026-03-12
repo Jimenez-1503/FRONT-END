@@ -43,19 +43,22 @@
 // const elementoInexistente = document.querySelector('.classe-que-nao-existe');
 // console.log("Resultado de seletor inexistente:", elementoInexistente); // Retorna null
 
-const tituloNhoque = document.querySelector('#card-nhoque h3')
+const tituloNhoque = document.querySelector('#sessao_massas .card:nth-child(2) h3')
 const botoesCompra = document.querySelectorAll('.btn-pedido')
 const terceiroCard = document.querySelector('.card:nth-child(3)')
+
 const data = new Date()
 const hora = data.getHours()
+
 const saudacao = document.querySelector('#boas-vindas')
 const seuNome = document.querySelector('#nome')
 
-console.log("1. Mostrando o título NHOQUE (Pedro ID)", tituloNhoque)
-console.log("2. Quantidade de botões de pedido: ", botoesCompra.length)
-console.log("3. A quarta posição da class card ", terceiroCard)
+console.log("1. Mostrando o título NHOQUE:", tituloNhoque.innerText)
+console.log("2. Quantidade de botões de pedido:", botoesCompra.length)
+console.log("3. O terceiro card:", terceiroCard)
 
-saudacao.textContent = hora < 18 ? "Bem-vindo e Boa tarde!":
-"Bem-vindo e Boa noite!"
+saudacao.textContent = hora < 18 
+? "Bem-vindo e Boa tarde!"
+: "Bem-vindo e Boa noite!"
 
 seuNome.innerHTML = "Meu <strong>nome</strong> é <em>Pedro</em>"
