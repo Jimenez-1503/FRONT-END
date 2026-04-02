@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitTrack - Saúde em Dia</title>
+    <link rel="stylesheet" href="src/styles/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>FitTrack 🏃‍♂️</h1>
+      <p id="saudacao-atleta">Carregando...</p>
+    </header>
+
+    <main class="container">
+      <section id="banner-foco" class="painel">
+        <h2>Modo Foco Ativado! 🎯</h2>
+        <p>Passe o mouse aqui para entrar no clima do treino.</p>
+      </section>
+
+      <section class="painel">
+        <h2>Meta Diária de Hidratação (35ml por Kg)</h2>
+
+        <div class="produto-dica">
+          <img
+            src="src/images/garrafa.png"
+            alt="Garrafa de Água Inteligente"
+            class="img-produto"
+          />
+        </div>
+
+        <div class="grupo-input">
+          <label for="peso-aluno">Seu peso atual (kg):</label>
+          <input type="number" id="peso-aluno" min="1" value="0" />
+        </div>
+        <p class="total">
+          Você deve beber: <strong id="meta-agua">0</strong> ml de água
+        </p>
+      </section>
+
+      <section class="painel">
+        <h2>Diário de Alimentação</h2>
+        <div class="grupo-input">
+          <label>O que você comeu agora?</label>
+          <input
+            type="text"
+            id="nome-refeicao"
+            placeholder="Ex: Salada com Frango Grelhado"
+          />
+        </div>
+        <button id="btn-registrar" class="btn-primario">
+          Registrar Refeição
+        </button>
+      </section>
+
+      <section class="painel vitrine">
+        <h2>Refeições do Dia</h2>
+        <button id="btn-zerar" class="btn-secundario">Zerar Diário</button>
+
+        <div id="lista-refeicoes"></div>
+      </section>
+    </main>
+    <script src="src/scripts/script.js"></script>
+  </body>
+</html>
