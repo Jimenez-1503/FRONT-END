@@ -1,4 +1,4 @@
-const contadorEl = document.querySelector("#contador");
+const contador = document.querySelector("#contador");
 const btnCurtir = document.querySelector("#btn-curtir");
 
 const campoTexto = document.querySelector("#campo-texto");
@@ -10,11 +10,11 @@ let curtidas = 0;
 
 btnCurtir.addEventListener("click", () => {
   curtidas++;
-  contadorEl.textContent = curtidas;
+  contador.textContent = curtidas;
 });
 
-campoTexto.addEventListener("input", (e) => {
-  previewTexto.textContent = `Digitando: ${e.target.value}`;
+campoTexto.addEventListener("input", (texto) => {
+  previewTexto.textContent = `Digitando: ${texto.target.value}`;
 });
 
 caixaCor.addEventListener("mouseenter", () => {
@@ -23,6 +23,6 @@ caixaCor.addEventListener("mouseenter", () => {
 });
 
 caixaCor.addEventListener("mouseleave", () => {
-  caixaCor.style.backgroundColor = "";
-  caixaCor.style.color = "";
+  caixaCor.style.backgroundColor = "white";
+  caixaCor.style.color = "black";
 });
