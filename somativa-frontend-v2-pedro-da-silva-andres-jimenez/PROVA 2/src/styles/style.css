@@ -97,8 +97,26 @@ input {
   background-color: #b71c1c;
 }
 
+.foco-total {
+  background-color: #00cec9;
+  color: white; /* Corrigido: adicionada a cor branca ao texto */
+  transform: scale(1.03);
+}
 
-.foco-total{
+.foco-total h2 { /* Corrigido: adicionado o espaço para o H2 */
+  color: white;
+  border-color: white;
+}
+
+.card-refeicao {
+  padding: 15px; /* Corrigido: adicionado o espaçamento interno pedido */
+  margin-bottom: 10px;
+  border: 2px solid #0984e3;
+  border-radius: 8px;
+  color: #333; 
+}
+
+/* .foco-total{
   
   background-color: #00cec9;
   text-decoration: #ffffff;
@@ -117,12 +135,11 @@ input {
 /* um espaçamento interno de 15px */
 
 
-.card-refeicao {
+/* .card-refeicao {
 
     margin-bottom: 10px;
     border: 2px solid #0984e3;
     border-radius: 8px;
     color: #ffffff;
     
-}
-
+} */ 
