@@ -54,7 +54,7 @@ if (saudacao) {
         const card = clicado.parentElement;
         const nomePrato = card.querySelector("h3").textContent;
         const quantidade = card.querySelector(".qtd-valor").textContent;
-        const precoExibido = card.querySelector(".preco");
+        const precoExibido = card.querySelector(".preco").textContent;
 
         // Efeito visual quando clicar em "Pedir agora":
 
@@ -70,7 +70,7 @@ if (saudacao) {
         }, 1500);
 
         if(!card.querySelector(".badge-adicionado")){
-            card.insertAdjacentHTML(
+            card.insertAdjacentHTML( "beforeend",
                 "<span class='badge-adicionado'>✔ No resumo</span>"
             )
         }
@@ -101,7 +101,7 @@ function adicionarItemAoResumo(nome, qtd, preco, cardOrigem){
 
     if(!secaoResumo || !listaResumo) return
 
-    secaoResumo.style.dispay = "block"
+    secaoResumo.style.display = "block"
 
     // Crianco 1 item na lista que está vazia no HTML
 
@@ -118,18 +118,45 @@ function adicionarItemAoResumo(nome, qtd, preco, cardOrigem){
     const btnRemover = document.createElement("button")
     btnRemover.textContent = "✕"
     btnRemover.classList.add("btn-remover")
+
+    btnRemover.addEventListener("click",() =>{
+        itemLi.remove()
+
+        const badge = cardOrigem.querySelector(".badge-adicionado")
+
+        if(badge) badge.remove()
+
+        if(listaResumo.children.length === 0)
+            secaoResumo.style.display = "none"
+    })
+
+    // iserido na página (parte VISUAL)
+    itemLi.appendChild(textoSpan)
+    itemLi.appendChild(btnRemover)
+    listaResumo.appendChild(itemLi)
+
 }
 
-// 4. INTERATIVIDADE NOS CARDS (Feedback visual)
-const cards = document.querySelectorAll(".card");
-cards.forEach((card) => {
-    card.addEventListener("mouseenter", () => {
-        card.style.transform = "translateY(-5px)";
-        card.style.boxShadow = "0 10px 20px rgba(0,0,0,0.1)";
-    });
-    card.addEventListener("mouseleave", () => {
-        card.style.transform = "translateY(0)";
-        card.style.boxShadow = "none";
-    });
-});
+// FIM AdicionarItemResumo
 
+// Remove todos os filhos da lista usando firstElementChild em loop: enquanto existir um filho, remove.
+// Depois remove todos os badges dos cards e esconde a seção.
+
+const btnLimpar = document.querySelector("#btn-limpar");
+if (btnLimpar) {
+  btnLimpar.addEventListener("click", () => {
+    const listaResumo = document.querySelector("#lista-resumo");
+    const secaoResumo = document.querySelector("#secao-resumo");
+
+    // Remove todos os badges dos cards
+    document.querySelectorAll(".badge-adicionado").forEach((b) => b.remove());
+
+    // Remove filhos da lista com firstElementChild
+    while (listaResumo.firstElementChild) {
+      listaResumo.firstElementChild.remove();
+    }
+    secaoResumo.style.display = "none";
+
+  });
+
+}
