@@ -65,18 +65,7 @@ function renderizarPedidos() {
     li.classList.add("item-pedido");
 
     const textoSpan = document.createElement("span");
-    textoSpan.innerHTML =
-      "<strong>" +
-      pedido.nome +
-      "</strong>" +
-      " — " +
-      pedido.qtd +
-      "x" +
-      " R$ " +
-      pedido.preco.toFixed(2).replace(".", ",") +
-      " = <span class='subtotal-item'>R$ " +
-      pedido.subtotal.toFixed(2).replace(".", ",") +
-      "</span>";
+    textoSpan.innerHTML = "<strong>" + pedido.nome + "</strong>" + " — " + pedido.qtd + "x" + " R$ " + pedido.preco.toFixed(2).replace(".", ",") + " = <span class='subtotal-item'>R$ " + pedido.subtotal.toFixed(2).replace(".", ",") + "</span>";
 
     const btnRemover = document.createElement("button");
     btnRemover.textContent = "✕";
@@ -85,9 +74,7 @@ function renderizarPedidos() {
     // Ao clicar: remove do array pelo índice, salva e re-renderiza.
     // splice(indice, 1) remove 1 elemento na posição exata do pedido.
     btnRemover.addEventListener("click", function () {
-      const lista = JSON.parse(
-        localStorage.getItem("techfood_pedidos") || "[]",
-      );
+      const lista = JSON.parse(localStorage.getItem("techfood_pedidos") || "[]");
       lista.splice(indice, 1);
       localStorage.setItem("techfood_pedidos", JSON.stringify(lista));
       renderizarPedidos();

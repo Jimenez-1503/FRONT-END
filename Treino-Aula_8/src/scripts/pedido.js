@@ -30,10 +30,15 @@ function renderizarPedidos(){
   lista.innerHTML = ""
   let total = 0
 
+  pedidos.forEach(function(pedido, indice){
+
+    const li = document.createElement("li")
+    li.classList.add("item-pedido")
+
    // Informações - TEXTO
 
     const textoSpan = document.createElement("span")
-    textoSpan.innerHTML
+    textoSpan.innerHTML = '<strong>' + pedidos.nome + '</strong>' + '-' + pedidos.qtd + 'x' + pedidos.preco.toFixed(2).replace(".", ",") + + " = <span class='subtotal-item'>R$ " + pedido.subtotal.toFixed(2).replace(".", ",") + "</span>"
 
     // Criando botão para remover prato
 
@@ -42,22 +47,34 @@ function renderizarPedidos(){
     btnRemover.classList.add("btn-remover")
 
     btnRemover.addEventListener("click",() =>{
-        itemLi.remove()
-
-        const badge = cardOrigem.querySelector(".badge-adicionado")
-
-        if(badge) badge.remove()
-
-        if(listaResumo.children.length === 0)
-            secaoResumo.style.display = "none"
-    })
-
+        const lista = JSON.parse(localStorage.getItem("techfood_pedidos") || "[]")
+        lista.splice(indice, 1) //splice usado para remoção
+        localStorage.setItem("techfood_pedidos", JSON.stringify(lista)) //usar setItem sempre pra atualizar (adicionar ou excluir)
+        renderizarPedidos()
+    
     // iserido na página (parte VISUAL)
-    itemLi.appendChild(textoSpan)
-    itemLi.appendChild(btnRemover)
-    listaResumo.appendChild(itemLi)
+    li.appendChild(textoSpan)
+    li.appendChild(btnRemover)
+    lista.appendChild(li)
+    total += pedido.subtotal
 
-    }
+    }) // Fim btn-remover
+
+}) // Fim pedidos.forEach
+
+}
+
+function configurarPedidos(){
+    const btn = document.querySelector("#btn-limpar-pedidos")
+    if(btn)
+        return
+
+    btn.addEventListener("click", function(){
+        localStorage.removeItem("techfood_pedidos");
+        renderizarPedidos(); // não será necessario o setItem pois é só chamar rederizarPedidos que já tem uma função de setItem
+  });
+
+}
 
    
 
