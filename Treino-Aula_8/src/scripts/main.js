@@ -21,7 +21,7 @@ cards.forEach((card) => {
 function inicializarVitrine(){
       const main = document.querySelector("main")
 
-      if(main) return
+      if(!main) return
 
   main.addEventListener("click", (event) => {
     
@@ -53,7 +53,7 @@ function inicializarVitrine(){
         const card = clicado.parentElement;
         const nomePrato = card.querySelector("h3").textContent;
         const quantidade = card.querySelector(".qtd-valor").textContent;
-        const precoExibido = card.querySelector(".preco").textContent;
+        const preco = card.querySelector(".preco").textContent;
 
         // Efeito visual quando clicar em "Pedir agora":
 
@@ -98,7 +98,16 @@ function inicializarVitrine(){
 
     }
 
-  })
+    if (clicado.classList.contains("btn-pedido")) {
+      event.preventDefault()
+
+      const card = clicado.parentElement
+      const nomePrato = card.querySelector("h3").textContent
+      const quantidade = Number(card.querySelector(".qtd-valor").textContent)
+      const preco = parseFloat(
+        card.querySelector(".preco").getAttribute("data-preco"),
+      )
+    })
 }
 
 function atualizarPrecoCard(box){
@@ -115,7 +124,7 @@ function atualizarPrecoCard(box){
 function salvarPedido(pedido){
     
     //adicionar, || "[]" evita erro quando a chave ainda não existe.
-    const lista = JSON.parse(localStorage.getItem("techfood-pedidos") || [])
+    const lista = JSON.parse(localStorage.getItem("techfood_pedidos") || "[]")
     
     //modificou a lista
     pedido.subtotal = pedido.preco * pedido.qtd;

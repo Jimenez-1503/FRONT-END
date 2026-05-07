@@ -8,7 +8,7 @@ function renderizarPedidos(){
     const spanResumo = document.querySelector("#valor-total-resumo");
     const spanContador = document.querySelector("#contador-itens");
 
-    if(lista) return
+    if(!lista) return
 
     //adicionar, || "[]" evita erro quando a chave ainda não existe.
     const pedidos = JSON.parse(localStorage.getItem("techfood-pedidos") || "[]");
@@ -57,6 +57,8 @@ function renderizarPedidos(){
     li.appendChild(btnRemover)
     lista.appendChild(li)
     total += pedido.subtotal
+
+    const totalFmt = "R$" + total.toFixed(2).replace
 
     }) // Fim btn-remover
 
