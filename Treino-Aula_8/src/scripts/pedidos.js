@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     renderizarPedidos();
+    configurarPedidos();
 })
 
 function renderizarPedidos(){
-    const lista = document.querySelector("#lista-pedido");
+    const lista = document.querySelector("#lista-pedidos");
     const spanTotal = document.querySelector("#valor-total");
     const spanResumo = document.querySelector("#valor-total-resumo");
     const spanContador = document.querySelector("#contador-itens");
@@ -11,7 +12,7 @@ function renderizarPedidos(){
     if(!lista) return
 
     //adicionar, || "[]" evita erro quando a chave ainda não existe.
-    const pedidos = JSON.parse(localStorage.getItem("techfood-pedidos") || "[]");
+    const pedidos = JSON.parse(localStorage.getItem("techfood_pedidos") || "[]");
     
     if(pedidos.length === 0){
         //é uma propriedade do JavaScript usada para obter ou definir (alterar) o conteúdo HTML interno de um elemento DOM
@@ -38,12 +39,12 @@ function renderizarPedidos(){
    // Informações - TEXTO
 
     const textoSpan = document.createElement("span")
-    textoSpan.innerHTML = '<strong>' + pedidos.nome + '</strong>' + '-' + pedidos.qtd + 'x' + pedidos.preco.toFixed(2).replace(".", ",") + + " = <span class='subtotal-item'>R$ " + pedido.subtotal.toFixed(2).replace(".", ",") + "</span>"
+    textoSpan.innerHTML = '<strong>' + pedido.nome + '</strong>' + '-' + pedido.qtd + 'x' + pedido.preco.toFixed(2).replace(".", ",") + " = <span class='subtotal-item'>R$ " + pedido.subtotal.toFixed(2).replace(".", ",") + "</span>"
 
     // Criando botão para remover prato
 
     const btnRemover = document.createElement("button")
-    btnRemover.textContent = "✕"
+    btnRemover.textContent = "❌"
     btnRemover.classList.add("btn-remover")
 
     btnRemover.addEventListener("click",() =>{
@@ -51,6 +52,7 @@ function renderizarPedidos(){
         lista.splice(indice, 1) //splice usado para remoção
         localStorage.setItem("techfood_pedidos", JSON.stringify(lista)) //usar setItem sempre pra atualizar (adicionar ou excluir)
         renderizarPedidos()
+    }) // Fim btn-remover
     
     // iserido na página (parte VISUAL)
     li.appendChild(textoSpan)
@@ -58,17 +60,29 @@ function renderizarPedidos(){
     lista.appendChild(li)
     total += pedido.subtotal
 
-    const totalFmt = "R$" + total.toFixed(2).replace
+    }) // Fim pedidos.forEach
 
-    }) // Fim btn-remover
+    const totalFmt = "R$" + total.toFixed(2).replace('.', ',')
+    if (spanTotal) spanTotal.textContent = totalFmt
+    if (spanResumo) spanResumo.textContent = totalFmt
 
-}) // Fim pedidos.forEach
+    const totalItens = pedidos.reduce(function (acc, p) {   // reduce acumula as quantidades depois devolve a quantidade de itens
+        return acc + p.qtd;
+    }, 0);
 
+    // conta a quantidade de itens no carrinhho
+
+    if (spanContador) {
+        spanContador.textContent = totalItens + (totalItens === 1 ? " item" : " itens");
+  }
+
+    
+    
 }
 
 function configurarPedidos(){
     const btn = document.querySelector("#btn-limpar-pedidos")
-    if(btn)
+    if(!btn)
         return
 
     btn.addEventListener("click", function(){

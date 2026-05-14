@@ -1,140 +1,182 @@
-document.addEventListener("DOMContentLoaded", function(){
-    inicilizarHoverCards();
+document.addEventListener("DOMContentLoaded", function () {
+    inicializarHoverCards();
     inicializarVitrine();
-})
-
-function inicilizarHoverCards(){
-    const cards = document.querySelectorAll(".card");
-cards.forEach((card) => {
-  card.addEventListener("mouseenter", () => {
-    card.style.transform = "translateY(-5px)";
-    card.style.boxShadow = "0 10px 20px rgba(0,0,0,0.1)";
-  });
-  card.addEventListener("mouseleave", () => {
-    card.style.transform = "translateY(0)";
-    card.style.boxShadow = "none";
-  });
 });
 
+function inicializarHoverCards() {
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach((card) => {
+        card.addEventListener("mouseenter", () => {
+            card.style.transform = "translateY(-5px)";
+            card.style.boxShadow = "0 10px 20px rgba(0,0,0,0.1)";
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "translateY(0)";
+            card.style.boxShadow = "none";
+        });
+    });
 }
 
-function inicializarVitrine(){
-      const main = document.querySelector("main")
+function inicializarVitrine() {
+    const main = document.querySelector("main");
 
-      if(!main) return
+    if (!main) return;
 
-  main.addEventListener("click", (event) => {
-    
-    const clicado = event.target
+    main.addEventListener("click", (event) => {
 
+        const clicado = event.target;
 
+        if (clicado.classList.contains("btn-menos")) {   // linhas para converter o texto para número e diminuir a quantidade
+            const box = clicado.parentElement;
+            const spanQtd = box.querySelector(".qtd-valor");
+            const valorAtual = Number(spanQtd.textContent);
 
-    if(clicado.classList.contains("btn-menos")) {   // linhas para converter o texto para número e diminuir a quantidade
-        const box = clicado.parentElement;
-        const spanQtd = box.querySelector(".qtd-valor");
-        const valorAtual = Number(spanQtd.textContent);
-        spanQtd.textContent = Math.max(1, valorAtual - 1);
-        atualizarPrecoCard(box)
-        return;
-    }
-    
-    if(clicado.classList.contains("btn-mais")) {   // linhas para converter o texto para número e aumentar a quantidade
-        const box = clicado.parentElement;
-        const spanQtd = box.querySelector(".qtd-valor");
-        spanQtd.textContent = Number(spanQtd.textContent) + 1;
-        atualizarPrecoCard(box)
-        return;
-    }
-    
-        
-    if(clicado.classList.contains("btn-pedido")) {
-        event.preventDefault();
+            spanQtd.textContent = Math.max(1, valorAtual - 1);
 
-        const card = clicado.parentElement;
-        const nomePrato = card.querySelector("h3").textContent;
-        const quantidade = card.querySelector(".qtd-valor").textContent;
-        const preco = card.querySelector(".preco").textContent;
+            atualizarPrecoCard(box);
 
-        // Efeito visual quando clicar em "Pedir agora":
+            return;
+        }
 
-        clicado.textContent = "✓ Adicionado!";
-        clicado.style.backgroundColor = "#27ae60";
-        clicado.disabled = true; // Desativa a possibilidade do click, o botão fica inativo
+        if (clicado.classList.contains("btn-mais")) {   // linhas para converter o texto para número e aumentar a quantidade
+            const box = clicado.parentElement;
+            const spanQtd = box.querySelector(".qtd-valor");
 
-        setTimeout(() => { // Usado para agendar a execução de uma função ou trecho de código uma única vez após um atraso especificado em milissegundos
+            spanQtd.textContent = Number(spanQtd.textContent) + 1;
 
-        clicado.textContent = "Pedir Agora";
-        clicado.style.backgroundColor = "";
-        clicado.disabled = false;
-        }, 1500);
+            atualizarPrecoCard(box);
 
-        const badgeExistente = card.querySelector(".badge-adicionado")
-        
-        if(badgeExistente) badgeExistente.remove()
-            card.insertAdjacentHTML( "beforeend",
+            return;
+        }
+
+        if (clicado.classList.contains("btn-pedido")) {
+
+            event.preventDefault();
+
+            const card = clicado.parentElement;
+
+            const nomePrato = card.querySelector("h3").textContent;
+
+            const quantidade = Number(
+                card.querySelector(".qtd-valor").textContent
+            );
+
+            const preco = parseFloat(
+                card.querySelector(".preco").getAttribute("data-preco")
+            );
+
+            // Efeito visual quando clicar em "Pedir agora":
+
+            clicado.textContent = "✓ Adicionado!";
+            clicado.style.backgroundColor = "#27ae60";
+            clicado.disabled = true; // Desativa a possibilidade do click, o botão fica inativo
+
+            setTimeout(() => { // Usado para agendar a execução de uma função ou trecho de código uma única vez após um atraso especificado em milissegundos
+
+                clicado.textContent = "Pedir Agora";
+                clicado.style.backgroundColor = "";
+                clicado.disabled = false;
+
+            }, 1500);
+
+            const badgeExistente = card.querySelector(".badge-adicionado");
+
+            if (badgeExistente) badgeExistente.remove();
+
+            card.insertAdjacentHTML(
+                "beforeend",
                 "<span class='badge-adicionado'>✔ No resumo</span>"
             );
 
-        // adicionando o tempo para o evento que aparece após adicionar o pedido
+            // adicionando o tempo para o evento que aparece após adicionar o pedido
 
-       setTimeout(function () {
-        const badge = card.querySelector(".badge-adicionado");
-        if (badge) badge.remove();
-      }, 2000);
-        
+            setTimeout(function () {
 
-      // Resetar a quantidade de itens:
-      
-      const box = card.querySelector(".quantidade-box")
-      if(box){
-        box.querySelector(".qtd-valor").textContent = "1";
-        atualizarPrecoCard(box);
-      }
+                const badge = card.querySelector(".badge-adicionado");
 
-      // Ação de salvar pedido:
-      
-      salvarPedido({ nome: nomePrato, preco: preco, qtd: quantidade });
-      atualizarContadorPedidos();
+                if (badge) badge.remove();
 
-    }
+            }, 2000);
 
-    if (clicado.classList.contains("btn-pedido")) {
-      event.preventDefault()
+            // Resetar a quantidade de itens:
 
-      const card = clicado.parentElement
-      const nomePrato = card.querySelector("h3").textContent
-      const quantidade = Number(card.querySelector(".qtd-valor").textContent)
-      const preco = parseFloat(
-        card.querySelector(".preco").getAttribute("data-preco"),
-      )
-    })
+            const box = card.querySelector(".quantidade-box");
+
+            if (box) {
+
+                box.querySelector(".qtd-valor").textContent = "1";
+
+                atualizarPrecoCard(box);
+            }
+
+            // Ação de salvar pedido:
+
+            salvarPedido({
+                nome: nomePrato,
+                preco: preco,
+                qtd: quantidade
+            });
+
+            atualizarContadorPedidos();
+        }
+    });
 }
 
-function atualizarPrecoCard(box){
+function atualizarPrecoCard(box) {
+
     const card = box.parentElement;
+
     const spanPreco = card.querySelector(".preco");
-    const precoUnitario = parseFloat(spanPreco.getAttribute("data-preco"));
-    const quantidade = Number (box.querySelector(".qtd-valor").textContent);
+
+    const precoUnitario = parseFloat(
+        spanPreco.getAttribute("data-preco")
+    );
+
+    const quantidade = Number(
+        box.querySelector(".qtd-valor").textContent
+    );
+
     const total = precoUnitario * quantidade;
-    spanPreco.textContent = "R$ " + total.toFixed(2).replace(".", ",") // substitui parte de uma string por um novo valor, retornando uma nova string sem modificar a original
-    spanPreco.style.color = total > 150 ? "#c0392b" : "#e67e22";
 
+    spanPreco.textContent =
+        "R$ " + total.toFixed(2).replace(".", ","); // substitui parte de uma string por um novo valor, retornando uma nova string sem modificar a original
+
+    spanPreco.style.color =
+        total > 150 ? "#c0392b" : "#e67e22";
 }
 
-function salvarPedido(pedido){
-    
-    //adicionar, || "[]" evita erro quando a chave ainda não existe.
-    const lista = JSON.parse(localStorage.getItem("techfood_pedidos") || "[]")
-    
-    //modificou a lista
+function salvarPedido(pedido) {
+
+    // adicionar, || "[]" evita erro quando a chave ainda não existe.
+    const lista = JSON.parse(
+        localStorage.getItem("techfood_pedidos") || "[]"
+    );
+
+    // modificou a lista
     pedido.subtotal = pedido.preco * pedido.qtd;
-    
-    //é utilizada para adicionar um ou mais elementos ao final de um array (lista) existente, modificando o array original.
-    //salvou todas alterações da lista
+
+    // é utilizada para adicionar um ou mais elementos ao final de um array (lista) existente, modificando o array original.
+
     lista.push(pedido);
-    localStorage.setItem("techfood_pedidos", JSON.stringify(lista));
+
+    // salvou todas alterações da lista
+    localStorage.setItem(
+        "techfood_pedidos",
+        JSON.stringify(lista)
+    );
 }
 
-function atualizarContadorPedidos(){
-    
+function atualizarContadorPedidos() {
+
+    const lista = JSON.parse(
+        localStorage.getItem("techfood_pedidos") || "[]"
+    );
+
+    const contador = document.querySelector(".contador-pedidos");
+
+    if (!contador) return;
+
+    contador.textContent = lista.length;
 }
